@@ -230,6 +230,22 @@ FocusListener, ItemListener, KeyListener, AdjustmentListener, WindowListener {
     		if (labels.get(o).equals(label)) return true;
     	return false;
     }
+    
+    /** Add custom component with default constraints and inset */
+    @ Override
+    public Component add(Component comp) {
+    	if (addToSameRow) {
+    		c.gridx = GridBagConstraints.RELATIVE;
+    		addToSameRow = false;
+    	} else {
+    		c.gridx = 0; c.gridy++;
+    		}
+		c.gridwidth = 2;
+		c.anchor = GridBagConstraints.WEST;
+		c.insets = addToSameRow ? c.insets : getInsets(5,0,0,0);
+		super.add(comp, c);
+		return comp;
+        }
 
 	/** Adds an 8 column text field.
 	* @param label			the label
